@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>ANUBIS</title>
+
+<style>
+body {
+    margin: 0;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #050505;
+    font-family: Arial;
+}
+
+/* фон */
+.bg {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at center, #2a0000, #000);
+    z-index: -1;
+}
+
+/* центр */
+.center {
+    text-align: center;
+    animation: fadeIn 1.2s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+/* ANUBIS */
+h1 {
+    font-size: 110px;
+    margin: 0;
+    letter-spacing: 12px;
+    background: linear-gradient(90deg, #ff0000, #ff6666, #ff0000);
+    background-size: 300%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: glow 3s linear infinite;
+}
+
+@keyframes glow {
+    0% { background-position: 0%; }
+    100% { background-position: 300%; }
+}
+
+p {
+    color: #aaa;
+}
+
+/* КНОПКА (ПЛАВНАЯ) */
+button {
+    margin-top: 40px;
+    padding: 18px 70px;
+    font-size: 18px;
+    border: none;
+    border-radius: 14px;
+    cursor: pointer;
+    background: linear-gradient(90deg, #ff1a1a, #ff0000);
+    color: white;
+    transition: all 0.35s ease;
+    box-shadow: 0 0 25px rgba(255,0,0,0.35);
+    position: relative;
+    overflow: hidden;
+}
+
+/* плавный hover */
+button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 45px rgba(255,0,0,0.7);
+}
+
+/* световой эффект */
+button::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: rgba(255,255,255,0.15);
+    transform: skewX(-25deg);
+    transition: 0.6s;
+}
+
+button:hover::before {
+    left: 120%;
+}
+
+/* статус */
+#status {
+    margin-top: 15px;
+    color: #777;
+    font-size: 14px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="bg"></div>
+
+<div class="center">
+    <h1>ANUBIS</h1>
+    <p>Modern Launcher System</p>
+
+    <!-- кнопка -->
+    <button onclick="startDownload(this)">INSTALL</button>
+
+    <div id="status"></div>
+</div>
+
+<script>
+
+/* 🔥 ВСТАВЬ СЮДА ССЫЛКУ НА ФАЙЛ */
+const fileURL = "https://drive.google.com/file/d/1Kt4Kpdxo-EhrUmL5gjC4xoUkkZ_DfahB/view?usp=drive_link";
+
+let downloading = false;
+
+function startDownload(btn) {
+    if (downloading) return;
+
+    downloading = true;
+
+    btn.innerText = "Installing...";
+    btn.disabled = true;
+
+    document.getElementById("status").innerText = "Preparing download...";
+
+    setTimeout(() => {
+        btn.innerText = "Downloading...";
+        document.getElementById("status").innerText = "Downloading...";
+
+        setTimeout(() => {
+            window.location.href = fileURL;
+        }, 800);
+
+    }, 600);
+}
+</script>
+
+</body>
+</html>
